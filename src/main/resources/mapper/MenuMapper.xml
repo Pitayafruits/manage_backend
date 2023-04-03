@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.MenuMapper">
+
+    <!--根据用户id查询权限-->
+    <select id="getMenuByUserId" parameterType="int" resultType="com.cc.domain.pojo.Menu">
+        SELECT m.* FROM tb_user_role AS ur
+        LEFT JOIN tb_role r ON ur.role_id = r.role_id
+        LEFT JOIN tb_role_menu as rm ON rm.role_id = r.role_id
+        LEFT JOIN tb_menu as m ON m.menu_id = rm.menu_id
+        WHERE ur.user_id=#{userId} ORDER BY m.order_num ASC;
+    </select>
+
+    <!--根据业主id查询权限-->
+    <select id="getMenuByLiverId" parameterType="int" resultType="com.cc.domain.pojo.Menu">
+        SELECT m.* FROM liver_role AS lr
+        LEFT JOIN tb_role r ON lr.role_id = r.role_id
+        LEFT JOIN tb_role_menu as rm ON rm.role_id = r.role_id
+        LEFT JOIN tb_menu as m ON m.menu_id = rm.menu_id
+        WHERE lr.liver_id=#{liverId} ORDER BY m.order_num ASC;
+    </select>
+
+    <!--根据角色id查询权限-->
+    <select id="getMenuByRoleId" parameterType="int" resultType="com.cc.domain.pojo.Menu">
+        SELECT m.* FROM tb_role_menu AS rm,tb_menu AS m
+        WHERE rm.menu_id = m.menu_id AND rm.role_id=#{roleId};
+    </select>
+
+</mapper>

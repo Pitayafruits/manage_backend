@@ -1,0 +1,19 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.UnitMapper">
+
+    <!--查询单元信息-->
+    <select id="getList" resultType="com.cc.domain.pojo.Unit">
+        SELECT hu.*,hb.building_name AS buildingName FROM house_unit AS hu,house_building AS hb
+        WHERE hb.building_id = hu.building_id
+        <if test="unitName != null and unitName != ''">
+            AND hu.unit_name LIKE concat('%',#{unitName},'%')
+        </if>
+        <if test="buildingName != null and buildingName != ''">
+            AND hb.building_name LIKE concat('%',#{buildingName},'%')
+        </if>
+    </select>
+
+</mapper>

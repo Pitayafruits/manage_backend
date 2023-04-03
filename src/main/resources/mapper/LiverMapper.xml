@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.LiverMapper">
+    <!--分页查询-->
+    <select id="getLiverList" resultType="com.cc.domain.pojo.Liver">
+        SELECT lu.liver_id,pl.park_id,lu.liver_name,lu.liver_sex,lu.liver_phone,lu.liver_status,hl.house_num,hl.house_area,hl.house_id,hu.unit_name,hb.building_name,pl.park_name,lh.liver_house_status, lp.liver_parking_status
+        FROM liver_user AS lu
+        LEFT JOIN liver_house AS lh ON lu.liver_id = lh.liver_id  AND lh.liver_house_status = '0'
+        LEFT JOIN house_list AS hl ON lh.house_id = hl.house_id
+        LEFT JOIN house_unit AS hu ON hl.unit_id = hu.unit_id
+        LEFT JOIN house_building AS hb ON hu.building_id = hb.building_id
+        LEFT JOIN liver_parking AS lp ON lu.liver_id = lp.liver_id AND lp.liver_parking_status = '0'
+        LEFT JOIN parking_list AS pl ON lp.park_id = pl.park_id
+        WHERE 1=1
+        <if test="liverName != null and liverName != ''">
+            AND lu.liver_name LIKE concat('%',#{liverName},'%')
+        </if>
+        <if test="liverPhone != null and liverPhone != ''">
+            AND lu.liver_phone LIKE concat('%',#{liverPhone},'%')
+        </if>
+    </select>
+
+    <!--编辑业主时的查询-->
+    <select id="getLiver" parameterType="Integer" resultType="com.cc.domain.pojo.Liver">
+        SELECT lu.*,lr.role_id FROM liver_user AS lu,liver_role AS lr
+        WHERE lu.liver_id = lr.liver_id AND lu.liver_id = #{liverId}
+    </select>
+</mapper>

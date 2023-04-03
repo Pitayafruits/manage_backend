@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.NoticeMapper">
+    <!--分页查询-->
+    <select id="getList" resultType="com.cc.domain.pojo.Notice">
+        SELECT cn.*,tu.full_name
+        FROM comm_notice AS cn,tb_user AS tu
+        WHERE cn.user_id = tu.user_id
+        <if test="fullName != null and fullName != ''">
+            AND tu.full_name LIKE concat('%',#{fullName},'%')
+        </if>
+        <if test="noticeTitle != null and noticeTitle != ''">
+            AND cn.notice_title LIKE concat('%',#{noticeTitle},'%')
+        </if>
+        ORDER BY cn.notice_time DESC
+    </select>
+
+    <!--首页分页查询-->
+    <select id="getIndexNoticeList" resultType="com.cc.domain.pojo.Notice">
+        SELECT *
+        FROM comm_notice AS cn
+        ORDER BY cn.notice_time DESC
+    </select>
+
+</mapper>

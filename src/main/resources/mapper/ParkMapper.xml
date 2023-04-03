@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.ParkMapper">
+
+    <!--分页查询-->
+    <select id="getParkList" resultType="com.cc.domain.pojo.Park">
+        SELECT lu.liver_name,lu.liver_phone,pp.*,pl.park_name,pl.park_type FROM pay_parking AS pp
+        LEFT JOIN liver_user AS lu ON pp.liver_id = lu.liver_id
+        LEFT JOIN parking_list AS pl ON pp.park_id = pl.park_id
+        WHERE 1 = 1
+        <if test="liverName != null and liverName != ''">
+            AND lu.liver_name LIKE concat('%',#{liverName},'%')
+        </if>
+        <if test="parkName != null and parkName != ''">
+            AND pl.park_name LIKE concat('%',#{parkName},'%')
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.WaterMapper">
+
+    <!--分页查询-->
+    <select id="getWaterList" resultType="com.cc.domain.pojo.Water">
+        SELECT pw.*,lu.liver_name,lu.liver_phone,hl.house_num,hu.unit_id,hu.unit_name,hb.building_id,hb.building_name FROM pay_water AS pw
+        LEFT JOIN liver_user AS lu ON pw.liver_id = lu.liver_id
+        LEFT JOIN house_list AS hl ON pw.house_id = hl.house_id
+        LEFT JOIN house_unit AS hu ON hl.unit_id = hu.unit_id
+        LEFT JOIN house_building AS hb ON hu.building_id = hb.building_id
+        WHERE 1=1
+        <if test="liverName != null and liverName != ''">
+            AND lu.liver_name LIKE concat('%',#{liverName},'%')
+        </if>
+        <if test="houseNum != null and houseNum != ''">
+            AND hl.house_num LIKE concat('%',#{houseNum},'%')
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,48 @@
+#端口号配置
+server:
+  port: 80
+
+#数据库连接配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/management?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: root
+
+#redis配置
+  redis:
+    host: 47.103.1.96
+    port: 6379
+    Auth: 123456
+    database: 0
+  cache:
+    redis:
+      time-to-live: 300000 #设置缓存数据的过期时间
+
+#mybatis plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      #配置mybatis plus 在更新时只更新非空和非NULL的字段
+      update-strategy: not_empty
+
+#配置登录请求url
+cc:
+  loginUrl: /user/login
+  commInfoUrl: /community/comminfo
+  workerListUrl: /worker/workerList
+  noticeListUrl: /notice/getNoticeList
+  facListUrl: /facilities/getFacList
+  sendMsgUrl: /liver/sendMsg
+  resetPassUrl: /liver/resetPassword
+
+#jwt配置
+jwt:
+  secret: pitayafruit
+  #30分钟过期
+  expiration: 1800000
+

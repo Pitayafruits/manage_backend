@@ -1,0 +1,15 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.RoleAndMenuMapper">
+
+    <!--保存权限-->
+    <insert id="saveRoleMenu">
+      INSERT INTO tb_role_menu(role_id,menu_id) VALUES
+      <foreach collection="menuIds" item="item" index="index" separator=",">
+        (#{roleId},#{item})
+      </foreach>
+    </insert>
+
+</mapper>

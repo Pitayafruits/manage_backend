@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.RepairMapper">
+    <!--分页查询-->
+    <select id="getList" resultType="com.cc.domain.pojo.Repair">
+        SELECT dr.*,lu.liver_name,lu.liver_phone
+        FROM def_repair AS dr,liver_user AS lu
+        WHERE dr.liver_id = lu.liver_id
+        <if test="liverName != null and liverName != ''">
+            AND lu.liver_name LIKE concat('%',#{liverName},'%')
+        </if>
+    </select>
+
+    <!--根据月份查询报修数量-->
+    <select id="findRepCountByMonths" resultType="int">
+        SELECT COUNt(repair_id)
+        FROM def_repair
+        WHERE repair_time &lt;= #{beforeDate} AND repair_time &gt;= #{afterDate};
+    </select>
+
+</mapper>

@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.HouseMapper">
+    <!--分页查询-->
+    <select id="getList" resultType="com.cc.domain.pojo.House">
+        SELECT hb.building_id,hb.building_name,hu.unit_name,hl.*
+        FROM house_list AS hl,house_unit AS hu,house_building AS hb
+        WHERE hl.unit_id = hu.unit_id AND hu.building_id = hb.building_id
+        <if test="buildingName != null and buildingName != ''">
+            AND hb.building_name LIKE concat('%',#{buildingName},'%')
+        </if>
+        <if test="unitName != null and unitName != ''">
+            AND hu.unit_name LIKE concat('%',#{unitName},'%')
+        </if>
+        <if test="houseNum != null and houseNum != ''">
+            AND hl.house_num LIKE concat('%',#{houseNum},'%')
+        </if>
+        <if test="houseStatus != null and houseStatus != ''">
+            AND hl.house_status = #{houseStatus}
+        </if>
+    </select>
+
+    <!--查询每栋楼宇的住户的数量-->
+    <select id="getLiverCount" resultType="map">
+        SELECT hb.building_name name,COUNT(hb.building_id) value FROM house_list AS hl
+        LEFT JOIN house_unit AS hu ON hl.unit_id = hu.unit_id
+        LEFT JOIN house_building AS hb ON hu.building_id = hb.building_id
+        WHERE hl.house_status = '1' GROUP BY hb.building_name;
+    </select>
+</mapper>

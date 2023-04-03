@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cc.mapper.ComplaintMapper">
+    <!--分页查询-->
+    <select id="getList" resultType="com.cc.domain.pojo.Complaint">
+        SELECT dc.*,lu.liver_name,lu.liver_phone
+        FROM def_complaint AS dc,liver_user AS lu
+        WHERE dc.liver_id = lu.liver_id
+        <if test="complaintTitle != null and complaintTitle != ''">
+            AND dc.complaint_title LIKE concat('%',#{complaintTitle},'%')
+        </if>
+    </select>
+
+    <!--根据月份查询投诉数量-->
+    <select id="findComCountByMonths" resultType="int">
+        SELECT COUNt(complaint_id)
+        FROM def_complaint
+        WHERE complaint_time &lt;= #{beforeDate} AND complaint_time &gt;= #{afterDate};
+    </select>
+
+</mapper>
