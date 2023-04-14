@@ -42,6 +42,9 @@ public class ParkController {
     @PutMapping
     @PreAuthorize("hasAuthority('pay:park:edit')")
     public ResultVo editPark(@RequestBody Park park){
+        if(park.getParkingStatus().equals("1")){
+            return ResultUtils.error("该账单已缴费，无法再编辑！");
+        }
         boolean flag = parkService.editPayPark(park);
         if (flag){
             return ResultUtils.success("编辑成功!");
