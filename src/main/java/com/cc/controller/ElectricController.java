@@ -35,6 +35,9 @@ public class ElectricController {
     @PutMapping
     @PreAuthorize("hasAuthority('pay:electric:edit')")
     public ResultVo editElectric(@RequestBody Electric electric){
+        if(electric.getElectricStatus().equals("1")){
+            return ResultUtils.error("该费用已经缴清，不能再次编辑！");
+        }
         boolean flag = electricService.updateElectric(electric);
         if (flag){
             return ResultUtils.success("编辑成功!");
