@@ -35,6 +35,9 @@ public class WaterController {
     @PutMapping
     @PreAuthorize("hasAuthority('pay:water:edit')")
     public ResultVo editWater(@RequestBody Water water){
+        if(water.getWaterStatus().equals("1")){
+            return ResultUtils.error("该账单已缴费，无法再编辑！");
+        }
         boolean flag = waterService.updateWater(water);
         if (flag){
             return ResultUtils.success("编辑成功!");
