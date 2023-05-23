@@ -38,6 +38,11 @@ public class UserController {
         if (StringUtils.isEmpty(loginParm.getUsername())|| StringUtils.isEmpty(loginParm.getPassword()) || StringUtils.isEmpty(loginParm.getUserType())){
             return ResultUtils.error("用户名、密码、用户类型不能为空!");
         }
+        //判断当前账户是否被禁用
+        boolean flag = userService.isStatus(loginParm);
+        if(!flag){
+            return ResultUtils.error("登陆失败，当前账号被禁用！");
+        }
         //不为空在进行登录
         LoginResult result = userService.loginUser(loginParm);
         if (result == null){

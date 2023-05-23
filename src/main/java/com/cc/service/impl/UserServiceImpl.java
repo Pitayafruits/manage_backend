@@ -6,6 +6,7 @@ import com.cc.domain.pojo.*;
 import com.cc.domain.parm.LoginParm;
 import com.cc.domain.vo.LoginResult;
 import com.cc.domain.vo.RouterVO;
+import com.cc.mapper.LiverMapper;
 import com.cc.mapper.UserAndRoleMapper;
 import com.cc.mapper.UserMapper;
 import com.cc.service.LiverService;
@@ -55,6 +56,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LiverMapper liverMapper;
 
     //用户登录
     @Override
@@ -241,6 +245,38 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             userInfo.setPassword(passwordEncoder.encode(user.getNewPassword()));
             return userService.updateById(userInfo);
         }
+    }
+
+    //判断当前账户状态
+    @Override
+    public boolean isStatus(LoginParm loginParm) {
+        //根据用户类型不同做不同处理
+        if(loginParm.getUserType().equals("1")){
+            //获取登录的用户密码
+            String username = loginParm.getUsername();
+            //构造条件构造器
+            QueryWrapper<User> userWrapper = new QueryWrapper<>();
+            userWrapper.lambda().eq(User::getUsername,username);
+            //执行查询
+            User user = baseMapper.selectOne(userWrapper);
+            //判断当前账户是否被禁用
+            if(user.getIsStatus().equals("1")){
+                return false;
+            }
+        }else{
+            //获取登录的用户密码
+            String livername = loginParm.getUsername();
+            //构造条件构造器
+            QueryWrapper<Liver> liverWrapper = new QueryWrapper<>();
+            liverWrapper.lambda().eq(Liver::getUsername,livername);
+            //执行查询
+            Liver liver = liverMapper.selectOne(liverWrapper);
+            //判断当前账户是否被禁用
+            if(liver.getLiverStatus().equals("1")){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

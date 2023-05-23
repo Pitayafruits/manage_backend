@@ -41,4 +41,7 @@ public interface UserService extends IService<User> {
 
     //修改密码
     boolean resetPass(ChangePassword user, HttpServletRequest request);
+
+    //判断当前账户状态
+    boolean isStatus(LoginParm loginParm);
 }
