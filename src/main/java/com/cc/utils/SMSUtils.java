@@ -17,8 +17,8 @@ import com.tencentcloudapi.sms.v20210111.models.SendSmsResponse;
 public class SMSUtils {
 
     //腾讯云账户
-    private static final String secretId = "AKIDua1B5i48vRgeLlumNhkX3IGyQbV8UaPw";
-    private static final String secretKey = "JL6l8H9k36rLYUAYfV4ORDiwtYw3sQgf";
+    private static final String secretId = "替换为自己的密钥";
+    private static final String secretKey = "替换为自己的密钥";
     //模板Id
     public static final String templateId_validate = "1357005"; //发送短信验证码
     public static final String templateId_password = "1740962"; //重置密码通知短信

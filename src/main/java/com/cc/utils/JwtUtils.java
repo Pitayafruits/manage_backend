@@ -111,7 +111,7 @@ public class JwtUtils {
     /**
      * 验证令牌
      *
-     * @param token       令牌
+     * @param token 令牌
      * @param username 用户名
      * @return 是否有效
      */
