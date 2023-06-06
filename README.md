@@ -20,3 +20,8 @@
 2. 后台页面展示
 
 ![](https://cdn.staticaly.com/gh/Pitayafruits/myPicRep@main/PropertyManage/202306052102444.jpg)
+
+### 下一步工作
+* 在考虑把权限框架由Spring Security替换为更轻量的Sa-Token
+* 想把缴费管理改成定时任务那种批量自动生成账单的形式
+
