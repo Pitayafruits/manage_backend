@@ -27,7 +27,7 @@
 
 2. 后台页面展示
 
-![](https://github.com/Pitayafruits/myPicRep/blob/main/PropertyManage/202306052102444.jpg)
+![](https://github.com/Pitayafruits/manage_backend/blob/master/%E5%90%8E%E5%8F%B0.png)
 
 ### 下一步工作
 * 在考虑把权限框架由Spring Security替换为更轻量的Sa-Token
