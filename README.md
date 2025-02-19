@@ -1,7 +1,7 @@
 # 物业后台管理系统-后端
 
 ### 前端代码仓库链接
-![前端代码仓库](https://github.com/Pitayafruits/manage_front)
+[前端代码仓库](https://github.com/Pitayafruits/manage_front)
 
 ### 运行前配置
 1. 在yml配置文件中修改自己的数据库配置
