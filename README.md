@@ -23,7 +23,7 @@
 ### 界面展示
 1. 前台页面展示
 
-![](https://github.com/Pitayafruits/myPicRep/blob/main/PropertyManage/202306062244908.jpg)
+![](https://github.com/Pitayafruits/manage_backend/blob/master/%E5%89%8D%E5%8F%B0.png)
 
 2. 后台页面展示
 
